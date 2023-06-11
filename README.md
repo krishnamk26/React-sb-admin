@@ -1,3 +1,10 @@
+deploy link
+
+https://sb-admin-2-task--friendly-cocada-d911ac.netlify.app/profile
+
+
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
