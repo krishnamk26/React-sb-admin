@@ -1,37 +1,46 @@
-import React from 'react'
+import React, {useState} from 'react'
 import Card from './Card'
+import { useNavigate } from 'react-router-dom';
+import Table from 'react-bootstrap/Table';
+import Button from 'react-bootstrap/Button';
 
-function Dashboard() {
-    let data = [
+function Dashboard({ users, setUsers }) {
+    let [data] = useState([
         {
             title: "EARNING (MONTHLY)",
             value: "40,000",
             color: "primary",
-            icon:"fa-calendar",
-            isPrograss:false,
+            icon: "fa-calendar",
+            isPrograss: false,
         },
         {
             title: "EARNING (ANNUAL)",
             value: "2,15,000",
             color: "success",
-            icon:"fa-dollar-sign",
-            isPrograss:false,
+            icon: "fa-dollar-sign",
+            isPrograss: false,
         },
         {
             title: "TASKS",
-            value: "65",
+            value: "38",
             color: "info",
-            icon:"fa-clipboard",
-            isPrograss:true,
+            icon: "fa-clipboard",
+            isPrograss: true,
         },
         {
             title: "PENDING REQUESTS",
             value: "18",
             color: "warning",
-            icon:"fa-comments",
-            isPrograss:false,
+            icon: "fa-comments",
+            isPrograss: false,
         }
-    ]
+    ])
+    // let handleDelete = (i) => {
+    //     let newArray = [...users]
+    //     newArray.splice(i, 1)
+    //     setUsers(newArray)
+    // }
+    let navigate = useNavigate()
     return <>
         <div id="content-wrapper" className="d-flex flex-column">
             <div id="content">
@@ -46,16 +55,56 @@ function Dashboard() {
                         {
                             data.map((e, i) => {
                                 return <Card key={i}
-                                   let values = {e}
-
+                                    let input={e}
+                                    value={10}
                                 />
                             })
                         }
+                    </div>
+                    <div className='container-fluid'>
+                        <Table striped bordered hover>
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Mobile</th>
+                                    <th>DOB</th>
+                                    <th>ACTION</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {
+                                    users.map((e, i) => {
+                                        return <tr key={i}>
+                                            <td>{i + 1}</td>
+                                            <td>{e.name}</td>
+                                            <td>{e.email}</td>
+                                            <td>{e.mobile}</td>
+                                            <td>{e.dob}</td>
+                                            <td>
+                                                <Button variant="primary" onClick={()=>navigate(`/edit-user/${i}`)}>Edit</Button>
+                                                &nbsp;&nbsp;&nbsp;
+                                                <Button variant="danger" onClick={() => {
+                                                    let newArray = [...users]
+                                                    newArray.splice(i, 1)
+                                                    setUsers(newArray)
+                                                }
+                                                }>Delete</Button>
+                                            </td>
+                                        </tr>
+
+                                    })
+                                }
+                            </tbody>
+                        </Table>
                     </div>
                 </div>
 
             </div>
         </div>
+
+
     </>
 }
 
